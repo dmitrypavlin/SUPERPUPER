@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SecondRow from '../components/organisms/SecondRow';
 import Topmenu from '../components/organisms/Topmenu';
 import Header from '../components/organisms/Header';
@@ -31,6 +32,7 @@ function VarRow({ children }: { children: React.ReactNode }) {
 }
 
 export default function Organisms() {
+  const navigate = useNavigate();
   const [topmenuFilter, setTopmenuFilter] = useState<'all' | 'templates' | 'off'>('off');
   const [headerFilter, setHeaderFilter] = useState<'all' | 'templates' | 'off'>('off');
 
