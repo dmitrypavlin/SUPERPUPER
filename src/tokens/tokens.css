@@ -1,0 +1,160 @@
+/*
+ * Design tokens — extracted from Figma
+ * File: iGoofMynDCJVuGePDeIhK2
+ * Collection: tokens / mode: ds
+ * Step 2: Styles
+ */
+
+/* ── Local fonts ──────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Akkurat LL Cyr TT';
+  src: url('/fonts/AkkuratLLCyrTT-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Akkurat LL Cyr TT';
+  src: url('/fonts/AkkuratLLCyrTT-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* weight 600 (Semibold) has no separate file — browser maps to Bold (700) */
+@font-face {
+  font-family: 'Akkurat LL Cyr TT';
+  src: url('/fonts/AkkuratLLCyrTT-Bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pixform';
+  src: url('/fonts/Pixform.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+
+:root {
+
+  /* ── Fonts ─────────────────────────────────────────────────── */
+  --font-antiqa:  'Instrument Serif', Georgia, serif;
+  --font-grotesk: 'Akkurat LL Cyr TT', system-ui, sans-serif;
+  --font-pixel:   'Pixform', monospace;
+
+  /* ── Font sizes ─────────────────────────────────────────────── */
+  --font-size-h1:           84px;
+  --font-size-h2:           40px;
+  --font-size-description:  30px;
+  --font-size-h3:           20px;
+  --font-size-h4:           15px;
+  --font-size-text-pixel:   10px;
+  --font-size-text-grotesk: 11px;
+  --font-size-caps:          8px;
+
+  /* ── Line heights ───────────────────────────────────────────── */
+  --line-height-h1:           76px;
+  --line-height-h2:           36px;
+  --line-height-description:  27px;
+  --line-height-h3:           18px;
+  --line-height-h4:           14px;
+  --line-height-text-pixel:    9px;
+  --line-height-text-grotesk: 10px;
+  --line-height-caps:          7px;
+
+  /* ── Font weights ───────────────────────────────────────────── */
+  --font-weight-regular:  400;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ── Colors: base ───────────────────────────────────────────── */
+  --color-black:       #000000;
+  --color-gray:        #cbcbcb;
+  --color-lines:       #eaeaea;
+  --color-super-yellow: #ffe900;
+  --color-bg-base:     #f2f2f2;
+
+  /* ── Colors: text & icons ───────────────────────────────────── */
+  --color-text-primary:    #000000;
+  --color-text-secondary:  #979797;
+  --color-text-on-color:   #ffffff;
+  --color-text-brown:      #d1a63b;
+  --color-text-green:      #00867b;
+  --color-text-yellow-dark: #646905;
+
+  /* ── Colors: controls ───────────────────────────────────────── */
+  --color-control-secondary-default: #eaeaea;
+  --color-control-on-color-white:    #ffffff;
+  --color-control-on-color-brown:    #d1a63b;
+  --color-control-on-color-yellow-dark: #fffd9e;
+
+  /* ── Colors: card backgrounds ───────────────────────────────── */
+  --color-card-white:  #ffffff;
+  --color-card-red:    #f5cfca;
+  --color-card-green:  #d4eee7;
+  --color-card-yellow: #e0e2a4;
+  --color-card-pink:   #fad5e7;
+  --color-card-violet: #ddd6ef;
+
+  /* ── Colors: on-card element backgrounds ────────────────────── */
+  --color-on-card-red:         #f7e0dd;
+  --color-on-card-green:       #d4eee7;
+  --color-on-card-yellow-dark: #fffd9e;
+  --color-on-card-yellow:      #e0e2a4;
+  --color-on-card-pink:        #ffe3f1;
+  --color-on-card-violet:      #ddd6ef;
+
+  /* ── Colors: tech / status indicators ──────────────────────── */
+  --color-tech-purple: #9747ff;
+  --color-tech-green:  #00867b;
+  --color-tech-red:    #cc0000;
+  --color-tech-gray:   #cbcbcb;
+
+  /* ── Colors: progress bar ───────────────────────────────────── */
+  --color-bar-filled: #b8c6c3;
+  --color-bar-empty:  #ffffff;
+
+  /* ── Indents (spacing) ──────────────────────────────────────── */
+  --indent-neg-1:    -1px;
+  --indent-neg-xs:   -8px;
+  --indent-xxxs:      2px;
+  --indent-xxs:       4px;
+  --indent-xs:        8px;
+  --indent-s:        14px;
+  --indent-m:        20px;
+  --indent-l:        24px;
+  --indent-x:        30px;
+  --indent-xxl:      90px;
+
+  /* ── Border radius (rounds) ─────────────────────────────────── */
+  --radius-s:    4px;
+  --radius-m:    8px;
+  --radius-l:   12px;
+  --radius-over: 999px;
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  --size-base-width: 830px;
+}

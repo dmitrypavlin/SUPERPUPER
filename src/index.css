@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ── Local fonts ──────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Akkurat LL Cyr TT';
+  src: url('/fonts/AkkuratLLCyrTT-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Akkurat LL Cyr TT';
+  src: url('/fonts/AkkuratLLCyrTT-Bold.ttf') format('truetype');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pixform';
+  src: url('/fonts/Pixform.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Design tokens → Tailwind utilities ───────────────────── */
+
+@theme {
+  /* Font families
+     font-antiqa · font-grotesk · font-pixel */
+  --font-antiqa:  'Instrument Serif', Georgia, serif;
+  --font-grotesk: 'Akkurat LL Cyr TT', system-ui, sans-serif;
+  --font-pixel:   'Pixform', monospace;
+
+  /* Font sizes  →  text-h1 · text-h2 · text-desc · text-h3
+                    text-h4 · text-pixel · text-grotesk · text-caps */
+  --text-h1:       84px;
+  --text-h2:       40px;
+  --text-desc:     30px;
+  --text-h3:       20px;
+  --text-h4:       15px;
+  --text-pixel:    10px;
+  --text-grotesk:  11px;
+  --text-caps:      8px;
+
+  /* Line heights  →  leading-h1 · leading-h2 … */
+  --leading-h1:        76px;
+  --leading-h2:        36px;
+  --leading-desc:      27px;
+  --leading-h3:        18px;
+  --leading-h4:        14px;
+  --leading-pixel:      9px;
+  --leading-grotesk:   10px;
+  --leading-caps:       7px;
+
+  /* Colors — base
+     bg-black · bg-gray · bg-lines · bg-yellow · bg-base */
+  --color-black:   #000000;
+  --color-gray:    #cbcbcb;
+  --color-lines:   #eaeaea;
+  --color-yellow:  #ffe900;
+  --color-base:    #f2f2f2;
+
+  /* Colors — text & icons
+     text-primary · text-secondary · text-on-color
+     text-brown · text-green · text-yellow-dark */
+  --color-primary:      #000000;
+  --color-secondary:    #979797;
+  --color-on-color:     #ffffff;
+  --color-brown:        #d1a63b;
+  --color-green:        #00867b;
+  --color-yellow-dark:  #646905;
+
+  /* Colors — controls   bg-control */
+  --color-control:  #eaeaea;
+
+  /* Colors — card backgrounds
+     bg-card-white · bg-card-red · bg-card-green
+     bg-card-yellow · bg-card-pink · bg-card-violet */
+  --color-card-white:   #ffffff;
+  --color-card-red:     #f5cfca;
+  --color-card-green:   #d4eee7;
+  --color-card-yellow:  #e0e2a4;
+  --color-card-pink:    #fad5e7;
+  --color-card-violet:  #ddd6ef;
+
+  /* Colors — on-card backgrounds
+     bg-on-red · bg-on-green · bg-on-yd · bg-on-yellow · bg-on-pink · bg-on-violet */
+  --color-on-red:    #f7e0dd;
+  --color-on-green:  #d4eee7;
+  --color-on-yd:     #fffd9e;
+  --color-on-yellow: #e0e2a4;
+  --color-on-pink:   #ffe3f1;
+  --color-on-violet: #ddd6ef;
+
+  /* Colors — tech / status
+     bg-tech-purple · bg-tech-green · bg-tech-red · bg-tech-gray */
+  --color-tech-purple:  #9747ff;
+  --color-tech-green:   #00867b;
+  --color-tech-red:     #cc0000;
+  --color-tech-gray:    #cbcbcb;
+
+  /* Colors — bar / misc */
+  --color-bar:  #b8c6c3;
+
+  /* Spacing  →  p-xxxs · p-xxs · p-xs · p-s · p-m · p-l · p-x · p-xxl
+                 (also gap-* · m-* · w-* · h-* etc.) */
+  --spacing-xxxs:  2px;
+  --spacing-xxs:   4px;
+  --spacing-xs:    8px;
+  --spacing-s:    14px;
+  --spacing-m:    20px;
+  --spacing-l:    24px;
+  --spacing-x:    30px;
+  --spacing-xxl:  90px;
+
+  /* Border radius  →  rounded-s · rounded-m · rounded-l · rounded-over */
+  --radius-s:      4px;
+  --radius-m:      8px;
+  --radius-l:     12px;
+  --radius-over: 999px;
+}
+
+/* Fix: Tailwind's built-in directional .rounded-l (left edge only) conflicts with our
+   --radius-l token. This override restores the intended uniform 12px on all corners. */
+@layer utilities {
+  .rounded-l {
+    border-radius: var(--radius-l);
+    border-top-left-radius: var(--radius-l);
+    border-bottom-left-radius: var(--radius-l);
+  }
+}
