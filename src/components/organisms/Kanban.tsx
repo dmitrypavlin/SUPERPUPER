@@ -44,9 +44,10 @@ type KanbanProps = {
   title?: string;
   columns?: KanbanColumn[];
   className?: string;
+  onPersonClick?: (person: KanbanPerson) => void;
 };
 
-export default function Kanban({ title = 'Pipeline', columns = DEFAULT_COLUMNS, className }: KanbanProps) {
+export default function Kanban({ title = 'Pipeline', columns = DEFAULT_COLUMNS, className, onPersonClick }: KanbanProps) {
   return (
     <div className={`flex flex-col gap-[50px] items-center px-x pb-xxl w-full ${className ?? ''}`}>
       <h1 className="font-antiqa text-h1 leading-[0.9] text-primary text-center tracking-[-0.84px] w-[830px]">
@@ -67,6 +68,7 @@ export default function Kanban({ title = 'Pipeline', columns = DEFAULT_COLUMNS, 
                   name={p.name}
                   role={p.role}
                   className="w-full rounded-s"
+                  onClick={onPersonClick ? () => onPersonClick(p) : undefined}
                 />
               ))}
             </div>

@@ -23,7 +23,7 @@ export default function TextArea({
         </label>
       )}
       <textarea
-        className="flex-1 min-h-[48px] px-s py-xs rounded-s bg-control font-pixel text-pixel tracking-[2px] uppercase text-black placeholder:text-gray resize-none outline-none"
+        className="flex-1 min-h-px px-s py-xs rounded-s bg-control font-pixel text-pixel tracking-[2px] uppercase text-black placeholder:text-gray resize-none outline-none"
         placeholder={placeholder}
         value={value}
         onChange={e => onChange?.(e.target.value)}
