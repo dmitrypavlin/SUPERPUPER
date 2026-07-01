@@ -8,6 +8,7 @@ type ProfileProps = {
   role?: string;
   status?: 'purple' | 'green' | 'red' | 'stopped';
   progress?: number;
+  onClick?: () => void;
   className?: string;
 };
 
@@ -17,11 +18,12 @@ export default function Profile({
   role = 'Senior Developer',
   status = 'green',
   progress = 75,
+  onClick,
   className,
 }: ProfileProps) {
   if (size === 'long') {
     return (
-      <div className={`flex gap-s items-start py-s border-b border-lines ${className ?? ''}`}>
+      <div onClick={onClick} className={`flex gap-s items-start py-s border-b border-lines cursor-pointer transition-all duration-150 ease-out hover:brightness-[0.96] active:brightness-[0.91] active:scale-[0.99] ${className ?? ''}`}>
         <Avatar variant="katya" />
         <div className="flex items-start justify-between shrink-0 w-[333px]">
           <div className="flex flex-col gap-xs">
@@ -39,7 +41,7 @@ export default function Profile({
 
   const bg = size === 'short' ? 'bg-on-red' : 'bg-control';
   return (
-    <div className={`flex w-fit gap-s items-start p-s rounded-s ${bg} ${className ?? ''}`}>
+    <div onClick={onClick} className={`flex w-fit gap-s items-start p-s rounded-s cursor-pointer transition-all duration-150 ease-out hover:brightness-[0.96] active:brightness-[0.91] active:scale-[0.99] ${bg} ${className ?? ''}`}>
       <Avatar variant="katya" className="mix-blend-multiply shrink-0" />
       <div className="flex-[1_0_0] flex flex-col gap-xs min-w-px">
         <span className="font-grotesk text-h3 leading-h3 text-primary">{name}</span>

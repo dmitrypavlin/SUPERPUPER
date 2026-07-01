@@ -6,6 +6,7 @@ type HeaderProps = {
   filter?: 'all' | 'templates' | 'off';
   onFilterChange?: (filter: 'all' | 'templates' | 'off') => void;
   onBack?: () => void;
+  onHomeClick?: () => void;
   secondRowType?: 'default' | 'builder';
   showSecondRow?: boolean;
   showBack?: boolean;
@@ -18,6 +19,7 @@ export default function Header({
   filter = 'all',
   onFilterChange,
   onBack,
+  onHomeClick,
   secondRowType = 'default',
   showSecondRow = true,
   showBack = true,
@@ -28,7 +30,7 @@ export default function Header({
   return (
     <div className={`flex flex-col w-full ${transparent ? 'bg-transparent' : 'bg-[#6b6b6b]'} ${className ?? ''}`}>
       <Topmenu filter={filter} onFilterChange={onFilterChange} />
-      {showSecondRow && <SecondRow type={secondRowType} onBack={onBack} showBack={showBack} />}
+      {showSecondRow && <SecondRow type={secondRowType} onBack={onBack} onHomeClick={onHomeClick} showBack={showBack} />}
       {showBar && (
         <div className="w-full overflow-hidden">
           <Bar size="big" value={75} cols={200} />

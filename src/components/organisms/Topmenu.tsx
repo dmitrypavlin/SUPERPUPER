@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from 'react-router-dom';
 import Btn from '../molecules/Btn';
 import MenuSwitch from '../molecules/MenuSwitch';
 
@@ -14,14 +15,17 @@ type TopmenuProps = {
 
 export default function Topmenu({
   appName = 'Hired & Wired',
-  filter = 'all',
-  onFilterChange,
   onProfile,
   onLogout,
   className,
 }: TopmenuProps) {
-  const handleAll = () => onFilterChange?.(filter === 'all' ? 'off' : 'all');
-  const handleTemplates = () => onFilterChange?.(filter === 'templates' ? 'off' : 'templates');
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const isTemplates = pathname.startsWith('/design/templates');
+
+  const handleAll = () => navigate('/design');
+  const handleTemplates = () => navigate('/design/templates');
 
   return (
     <div className={`flex items-center justify-between px-m py-s border-b border-white/20 w-full ${className ?? ''}`}>
@@ -32,8 +36,8 @@ export default function Topmenu({
         <div className="flex items-center gap-m">
           <Btn btnType="on-color" label="Generate report" />
           <div className="flex items-center gap-xxxs">
-            <MenuSwitch text="All teams"     active={filter === 'all'}       onClick={handleAll} />
-            <MenuSwitch text="All templates" active={filter === 'templates'} onClick={handleTemplates} />
+            <MenuSwitch text="All teams"     active={!isTemplates} onClick={handleAll} />
+            <MenuSwitch text="All templates" active={isTemplates}  onClick={handleTemplates} />
           </div>
         </div>
       </div>

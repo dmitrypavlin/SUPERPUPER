@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/organisms/Header';
 import Btn from '../components/molecules/Btn';
 import SwitchGroup from '../components/molecules/SwitchGroup';
 import CardMetricGraph from '../components/molecules/CardMetricGraph';
 import Team from '../components/molecules/Team';
+import Profile from '../components/molecules/Profile';
+import Dropdown from '../components/molecules/Dropdown';
 
 const IMG_BG_1 = 'https://www.figma.com/api/mcp/asset/02756529-fa56-4d72-b882-57ec9e436084';
 const IMG_BG_2 = 'https://www.figma.com/api/mcp/asset/2c9ac606-b51c-4017-a1db-61b7a6fd5ffe';
@@ -24,9 +27,28 @@ const TEAMS = [
   { name: 'Operations Team',  count: 20, productivity: 79, highlight: 'Onboarded 4 new team members this week',     extraCount: 16 },
 ];
 
+const STATUS_FILTERS = ['All', 'Onboarding', 'Rocket Growth', 'Failing', 'Fired'];
+
+const EMPLOYEES: { name: string; role: string; status: 'green' | 'purple' | 'red' | 'stopped'; progress: number }[] = [
+  { name: 'Sarah Johnson',   role: 'Senior Developer',     status: 'green',  progress: 75 },
+  { name: 'Michael Smith',   role: 'Product Manager',      status: 'purple', progress: 60 },
+  { name: 'Emily Davis',     role: 'UX Designer',          status: 'green',  progress: 65 },
+  { name: 'David Brown',     role: 'QA Engineer',          status: 'purple', progress: 55 },
+  { name: 'Linda Garcia',    role: 'Data Analyst',         status: 'green',  progress: 62 },
+  { name: 'James Wilson',    role: 'Software Engineer',    status: 'red',    progress: 50 },
+  { name: 'Alice Thompson',  role: 'Marketing Specialist', status: 'green',  progress: 58 },
+  { name: 'Robert Martinez', role: 'Sales Executive',      status: 'red',    progress: 45 },
+  { name: 'Jessica Taylor',  role: 'Content Strategist',  status: 'green',  progress: 70 },
+  { name: 'Charles Lee',     role: 'Systems Analyst',      status: 'red',    progress: 48 },
+];
+
+const CURATOR_OPTIONS = ['Alex Kim', 'Maria Chen', 'Tom Evans', 'Sarah Mitchell'];
+
 export default function Design() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<'all' | 'templates' | 'off'>('all');
   const [activeTab, setActiveTab] = useState(0);
+  const [statusFilter, setStatusFilter] = useState(1);
 
   return (
     <div className="min-h-screen bg-base">
@@ -42,10 +64,10 @@ export default function Design() {
         </div>
 
         {/* Transparent header: relative z-10 so it sits above the absolute background layer */}
-        <Header filter={filter} onFilterChange={setFilter} showSecondRow secondRowType="default" showBack={false} showBar={false} transparent className="relative z-10" />
+        <Header filter={filter} onFilterChange={setFilter} showSecondRow={false} showBack={false} showBar={false} transparent className="relative z-10" />
 
         {/* Hero content: centered 830px column, pushed to bottom via justify-end */}
-        <div className="max-w-[830px] mx-auto relative flex flex-col gap-[160px] items-center justify-end h-[480px] pb-x px-x">
+        <div className="max-w-[830px] mx-auto relative flex flex-col gap-[160px] items-center justify-end min-h-[480px] pt-x pb-x px-x">
           {/* title + description + cta */}
           <div className="flex flex-col gap-x items-center w-[754px] shrink-0">
             <div className="flex flex-col gap-x items-start text-center w-full">
@@ -56,7 +78,7 @@ export default function Design() {
                 Overview of all teams<br />and their performance metrics
               </span>
             </div>
-            <Btn btnType="small" label="Add team" />
+            <Btn btnType="small" label={activeTab === 1 ? 'Add employee' : 'Add team'} />
           </div>
 
           {/* switch group at bottom */}
@@ -69,37 +91,83 @@ export default function Design() {
         </div>
       </div>
 
-      <div className="max-w-[830px] mx-auto flex flex-col gap-xxs pb-xxl">
+      {activeTab === 0 && (
+        <div className="max-w-[830px] mx-auto flex flex-col gap-xxs pb-xxl">
 
-        {/* Stats row */}
-        <div className="flex gap-xxs">
-          {STATS.map(s => (
-            <CardMetricGraph
-              key={s.title}
-              title={s.title}
-              label={s.label}
-              bars={s.bars}
-              bg={s.bg}
-              className="flex-1 min-w-0 w-auto"
-            />
-          ))}
+          {/* Stats row */}
+          <div className="flex gap-xxs">
+            {STATS.map(s => (
+              <CardMetricGraph
+                key={s.title}
+                title={s.title}
+                label={s.label}
+                bars={s.bars}
+                bg={s.bg}
+                className="flex-1 min-w-0 w-auto"
+              />
+            ))}
+          </div>
+
+          {/* Teams grid */}
+          <div className="grid grid-cols-2 gap-xxs">
+            {TEAMS.map(t => (
+              <Team
+                key={t.name}
+                name={t.name}
+                count={t.count}
+                productivity={t.productivity}
+                highlight={t.highlight}
+                extraCount={t.extraCount}
+                onClick={() => navigate('/design/team', { state: { name: t.name, highlight: t.highlight } })}
+              />
+            ))}
+          </div>
+
         </div>
+      )}
 
-        {/* Teams grid */}
-        <div className="grid grid-cols-2 gap-xxs">
-          {TEAMS.map(t => (
-            <Team
-              key={t.name}
-              name={t.name}
-              count={t.count}
-              productivity={t.productivity}
-              highlight={t.highlight}
-              extraCount={t.extraCount}
-            />
-          ))}
+      {activeTab === 1 && (
+        <div className="max-w-[830px] mx-auto pb-xxl">
+          <div className="bg-card-white rounded-l flex flex-col gap-l p-x">
+
+            {/* Filter row */}
+            <div className="flex items-start justify-between w-full">
+              <div className="flex items-center gap-xxs flex-wrap">
+                <span className="font-pixel text-pixel tracking-[2px] uppercase text-secondary mr-xs">Status:</span>
+                {STATUS_FILTERS.map((s, i) => (
+                  <button
+                    key={s}
+                    onClick={() => setStatusFilter(i)}
+                    className={`h-8 inline-flex items-center px-s rounded-over font-pixel text-pixel tracking-[2px] uppercase transition-all duration-150 ease-out hover:brightness-95 active:scale-[0.97] ${
+                      statusFilter === i
+                        ? 'bg-primary text-on-color'
+                        : 'border border-lines text-primary'
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+              <Dropdown showHeadline={false} value="Chose Curator" options={CURATOR_OPTIONS} />
+            </div>
+
+            {/* Profile list */}
+            <div className="flex flex-col w-full">
+              {EMPLOYEES.map(e => (
+                <Profile
+                  key={e.name}
+                  name={e.name}
+                  role={e.role}
+                  status={e.status}
+                  progress={e.progress}
+                  onClick={() => navigate('/design/employee', { state: { name: e.name, role: e.role } })}
+                />
+              ))}
+            </div>
+
+          </div>
         </div>
-
-      </div>
+      )}
     </div>
   );
 }

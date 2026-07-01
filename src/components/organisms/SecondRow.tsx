@@ -6,6 +6,7 @@ type SecondRowProps = {
   type?: SecondRowType;
   breadcrumb?: string[];
   onBack?: () => void;
+  onHomeClick?: () => void;
   showBack?: boolean;
   className?: string;
 };
@@ -14,6 +15,7 @@ export default function SecondRow({
   type = 'default',
   breadcrumb = ['Home', 'Something', 'Something'],
   onBack,
+  onHomeClick,
   showBack = true,
   className,
 }: SecondRowProps) {
@@ -42,7 +44,13 @@ export default function SecondRow({
       <div className="flex items-center gap-xs font-grotesk text-grotesk leading-grotesk text-primary">
         {breadcrumb.map((item, i) => (
           <span key={i} className="whitespace-nowrap">
-            {item}{i < breadcrumb.length - 1 && <span className="ml-xs">•</span>}
+            <span
+              onClick={i === 0 && onHomeClick ? onHomeClick : undefined}
+              className={i === 0 && onHomeClick ? 'cursor-pointer hover:underline' : ''}
+            >
+              {item}
+            </span>
+            {i < breadcrumb.length - 1 && <span className="ml-xs">•</span>}
           </span>
         ))}
       </div>

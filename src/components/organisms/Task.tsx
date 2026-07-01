@@ -12,6 +12,7 @@ type TaskProps = {
   showError?: boolean;
   showBtn?: boolean;
   btnLabel?: string;
+  onBtnClick?: () => void;
   className?: string;
 };
 
@@ -22,6 +23,7 @@ export default function Task({
   showError = true,
   showBtn = true,
   btnLabel = 'Job description',
+  onBtnClick,
   className,
 }: TaskProps) {
   const [flagged, setFlagged] = useState(state === 'pending');
@@ -38,7 +40,7 @@ export default function Task({
           {title}
         </span>
         {showError && <ErrorMsg text={errorText} />}
-        {showBtn && <Btn btnType="secondary" label={btnLabel} />}
+        {showBtn && <Btn btnType="secondary" label={btnLabel} onClick={onBtnClick} />}
       </div>
     </div>
   );
