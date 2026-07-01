@@ -15,8 +15,6 @@ type TopmenuProps = {
 
 export default function Topmenu({
   appName = 'Hired & Wired',
-  filter = 'all',
-  onFilterChange,
   onProfile,
   onLogout,
   className,

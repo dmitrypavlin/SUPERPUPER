@@ -34,7 +34,7 @@ const pageVariants = {
   exit:    { opacity: 0 },
 };
 
-const pageTransition = { duration: 0.2, ease: 'easeInOut' };
+const pageTransition = { duration: 0.2, ease: 'easeInOut' } as const;
 
 function ScrollToTop() {
   const { pathname } = useLocation();
