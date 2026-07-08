@@ -75,17 +75,9 @@ export default function Organisms() {
 
       {/* Task */}
       <Section title="Task">
-        <div className="flex flex-col gap-m max-w-[692px]">
-          <Var label="pending">
-            <Task state="pending" />
-          </Var>
-          <Var label="done">
-            <Task
-              state="done"
-              title="Review candidate applications"
-              showError={false}
-              btnLabel="View applications"
-            />
+        <div className="max-w-[692px]">
+          <Var label="click the flag to toggle pending/done">
+            <Task />
           </Var>
         </div>
       </Section>

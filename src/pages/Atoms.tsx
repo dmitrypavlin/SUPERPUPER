@@ -13,7 +13,7 @@ import Input from '../components/molecules/Input';
 import Dropdown from '../components/molecules/Dropdown';
 import Graph from '../components/molecules/Graph';
 import SwitchGroup from '../components/molecules/SwitchGroup';
-import Btn, { type BtnForceState } from '../components/molecules/Btn';
+import Btn from '../components/molecules/Btn';
 import MenuSwitch from '../components/molecules/MenuSwitch';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -52,7 +52,7 @@ function VarGroup({ label, children }: { label: string; children: React.ReactNod
 export default function Atoms() {
   const [switchGroupTab, setSwitchGroupTab] = useState(0);
   const [flag0, setFlag0] = useState(false);
-  const [flag1, setFlag1] = useState(true);
+  const [menuSwitchActive, setMenuSwitchActive] = useState(true);
 
   return (
     <div className="min-h-screen bg-base px-l pt-x pb-xxl">
@@ -102,14 +102,9 @@ export default function Atoms() {
 
       {/* Flag */}
       <Section title="Flag">
-        <VarRow>
-          <Var label="active=false">
-            <Flag active={flag0} onClick={() => setFlag0(v => !v)} />
-          </Var>
-          <Var label="active=true">
-            <Flag active={flag1} onClick={() => setFlag1(v => !v)} />
-          </Var>
-        </VarRow>
+        <Var label="click to toggle">
+          <Flag active={flag0} onClick={() => setFlag0(v => !v)} />
+        </Var>
       </Section>
 
       {/* Tag */}
@@ -174,24 +169,14 @@ export default function Atoms() {
 
       {/* Dropdown */}
       <Section title="Dropdown">
-        <div className="flex flex-col gap-l">
-          <VarGroup label="on-color">
-            <Var label="filled=true">
-              <div className="w-[180px]"><Dropdown theme="on-color" headline="Team" value="Frontend Team" filled /></div>
-            </Var>
-            <Var label="filled=false">
-              <div className="w-[180px]"><Dropdown theme="on-color" headline="Team" value="select…" filled={false} /></div>
-            </Var>
-          </VarGroup>
-          <VarGroup label="default">
-            <Var label="filled=true">
-              <div className="w-[180px]"><Dropdown theme="default" headline="Category" value="Design" filled /></div>
-            </Var>
-            <Var label="filled=false">
-              <div className="w-[180px]"><Dropdown theme="default" headline="Category" value="select…" filled={false} /></div>
-            </Var>
-          </VarGroup>
-        </div>
+        <VarRow>
+          <Var label="on-color">
+            <div className="w-[180px]"><Dropdown theme="on-color" headline="Team" value="Frontend Team" /></div>
+          </Var>
+          <Var label="default">
+            <div className="w-[180px]"><Dropdown theme="default" headline="Category" value="Design" /></div>
+          </Var>
+        </VarRow>
       </Section>
 
       {/* Graph */}
@@ -218,20 +203,19 @@ export default function Atoms() {
       {/* MenuSwitch */}
       <Section title="MenuSwitch">
         <div className="bg-[#6b6b6b] inline-flex p-m rounded-l">
-          <VarGroup label="on dark bg">
-            <Var label="active">
-              <MenuSwitch text="All teams" active />
-            </Var>
-            <Var label="inactive">
-              <MenuSwitch text="All teams" active={false} />
-            </Var>
-          </VarGroup>
+          <Var label="click to toggle">
+            <MenuSwitch
+              text="All teams"
+              active={menuSwitchActive}
+              onClick={() => setMenuSwitchActive(v => !v)}
+            />
+          </Var>
         </div>
       </Section>
 
       {/* Btn */}
       <Section title="Button">
-        <div className="flex flex-col gap-l">
+        <VarRow>
           {(
             [
               { type: 'secondary',  label: 'More info',     subLabel: undefined,       wrap: false },
@@ -240,28 +224,15 @@ export default function Atoms() {
               { type: 'big',        label: 'More info',     subLabel: undefined,       wrap: false },
               { type: 'node',       label: 'Sarah Johnson', subLabel: 'design lead',   wrap: false },
             ] as const
-          ).map(({ type, label, subLabel, wrap }) => (
-            <VarGroup key={type} label={type}>
-              {(['default', 'hover', 'pressed'] as const).map(state => {
-                const forceState: BtnForceState | undefined = state === 'default' ? undefined : state;
-                const btn = (
-                  <Btn
-                    key={state}
-                    btnType={type}
-                    label={label}
-                    subLabel={subLabel}
-                    forceState={forceState}
-                  />
-                );
-                return (
-                  <Var key={state} label={state}>
-                    {wrap ? <div className="bg-[#6b6b6b] p-s rounded-m">{btn}</div> : btn}
-                  </Var>
-                );
-              })}
-            </VarGroup>
-          ))}
-        </div>
+          ).map(({ type, label, subLabel, wrap }) => {
+            const btn = <Btn btnType={type} label={label} subLabel={subLabel} />;
+            return (
+              <Var key={type} label={type}>
+                {wrap ? <div className="bg-[#6b6b6b] p-s rounded-m">{btn}</div> : btn}
+              </Var>
+            );
+          })}
+        </VarRow>
       </Section>
     </div>
   );
